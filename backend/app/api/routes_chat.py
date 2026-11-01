@@ -32,14 +32,14 @@ async def chat_stream(req: ChatStreamRequest):
     try:
         normalized_url = normalize_base_url(base_url)
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Invalid base URL: {str(e)}")
+        raise HTTPException(status_code=400, detail=f"Invalid base URL: {str(e)}") from e
 
     # 2. Dynamic import of RAG Retriever and Dual Output Parser
     try:
         from backend.app.services.rag_retriever import rag_retriever
         from backend.app.services.dual_output_parser import DualOutputParser
     except ImportError as e:
-        raise HTTPException(status_code=500, detail=f"RAG services initialization error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"RAG services initialization error: {str(e)}") from e
 
     # 3. Mandatory Retrieval Before Generation (Rule 4)
     rag_context = await rag_retriever.retrieve_async(
