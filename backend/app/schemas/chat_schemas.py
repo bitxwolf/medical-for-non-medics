@@ -1,4 +1,4 @@
-from typing import List, Optional, Literal
+from typing import List, Literal
 from pydantic import BaseModel, Field
 
 
@@ -19,10 +19,10 @@ class ChatStreamRequest(BaseModel):
     message: str = Field(..., description="User question or follow-up prompt")
     mode: ActiveMode = Field(default="anatomy", description="Active operating mode")
     comprehension_level: ComprehensionLevel = Field(default="layperson", description="Target depth and vocabulary level")
-    base_url: Optional[str] = Field(default=None, description="Client-provided OpenAI-compatible base URL")
-    api_key: Optional[str] = Field(default=None, description="Client-provided API key")
-    model_id: Optional[str] = Field(default=None, description="Model ID to invoke")
-    current_focused_ids: Optional[List[str]] = Field(default=None, description="Currently focused or selected FMA IDs in 3D viewport")
+    base_url: str | None = Field(default=None, description="Client-provided OpenAI-compatible base URL")
+    api_key: str | None = Field(default=None, description="Client-provided API key")
+    model_id: str | None = Field(default=None, description="Model ID to invoke")
+    current_focused_ids: list[str] | None = Field(default=None, description="Currently focused or selected FMA IDs in 3D viewport")
 
 
 class SSEEventPayload(BaseModel):
