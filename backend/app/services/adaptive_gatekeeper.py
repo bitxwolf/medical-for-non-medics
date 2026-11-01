@@ -34,8 +34,8 @@ class RouteDecision(BaseModel):
     requires_external_rag: bool = Field(..., description="Whether to query NIH/NCBI Cloud RAG")
     routing_reason: str = Field(..., description="Explanation for routing path")
     route_path: str = Field(..., description="'Path A (Tier 1 Graph)' or 'Path B (Tier 3 NCBI Cloud)'")
-    search_query: Optional[str] = Field(default=None, description="Refined query string for NCBI E-utilities if routed to Path B")
-    spatial_direction: Optional[str] = Field(default=None, description="'cranio_caudal' or 'caudo_cranial' if detected")
+    search_query: str | None = Field(default=None, description="Refined query string for NCBI E-utilities if routed to Path B")
+    spatial_direction: str | None = Field(default=None, description="'cranio_caudal' or 'caudo_cranial' if detected")
 
 
 class AdaptiveGatekeeper:
@@ -49,7 +49,7 @@ class AdaptiveGatekeeper:
         query: str,
         mode: ActiveMode = "anatomy",
         comprehension_level: ComprehensionLevel = "layperson",
-        focused_ids: Optional[List[str]] = None
+        focused_ids: List[str] | None = None
     ) -> RouteDecision:
         q_lower = query.lower()
         words = set(re.findall(r'\b[a-zA-Z0-9_\-]+\b', q_lower))
