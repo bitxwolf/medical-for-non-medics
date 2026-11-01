@@ -7,7 +7,7 @@ import json
 import os
 import re
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Tuple
 import numpy as np
 
 
@@ -79,7 +79,7 @@ class LocalAnatomicalStore:
         fma_id = struct["fma_id"]
         self.structures[fma_id] = struct
 
-    def get_structure(self, fma_id: str) -> Optional[Dict[str, Any]]:
+    def get_structure(self, fma_id: str) -> Dict[str, Any] | None:
         return self.structures.get(fma_id)
 
     def add_edge(self, source_fma_id: str, target_fma_id: str, relationship_type: str, clinical_note: str = ""):
