@@ -32,7 +32,7 @@ async def chat_stream(req: ChatStreamRequest):
     try:
         normalized_url = normalize_base_url(base_url)
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Invalid base URL: {str(e)}")
+        raise HTTPException(status_code=400, detail=f"Invalid base URL: {str(e)}") from e
 
     # 2. Dynamic import of RAG Retriever and Dual Output Parser
     try:
