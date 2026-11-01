@@ -39,7 +39,7 @@ async def chat_stream(req: ChatStreamRequest):
         from backend.app.services.rag_retriever import rag_retriever
         from backend.app.services.dual_output_parser import DualOutputParser
     except ImportError as e:
-        raise HTTPException(status_code=500, detail=f"RAG services initialization error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"RAG services initialization error: {str(e)}") from e
 
     # 3. Mandatory Retrieval Before Generation (Rule 4)
     rag_context = await rag_retriever.retrieve_async(
