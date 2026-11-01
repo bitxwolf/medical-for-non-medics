@@ -32,7 +32,7 @@ async def list_models(req: FetchModelsRequest):
         raise HTTPException(
             status_code=400,
             detail=f"Invalid base URL or request: {str(exc)}"
-        )
+        ) from exc
 
 
 @router.post("/test-connection", response_model=TestConnectionResponse)
